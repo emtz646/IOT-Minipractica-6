@@ -1,0 +1,189 @@
+<!--
+   Wii menu page
+   
+   by eggdesign
+   
+   Feel free to edit however you want! This page is pretty simple, but there are comments to help with editing.
+   
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>Mascotas Wii</title>
+
+        <link rel="stylesheet" href="styles.css">
+        
+      
+    </head>
+
+    <header>
+
+      <button class="btn-circular" data-button="home" aria-label="Botón Home">
+        <img src="botones/btn_home.png" alt="Home">
+      </button>
+
+     <div class="searchbar">
+        <input
+          class="searchbar-input"
+          type="search"
+          aria-label="Buscar"
+          placeholder="Buscar..."
+        >
+        <button class="btn-searchbar" data-button="Search" type="button" aria-label="Buscar">
+          <img src="botones/btn_search.png" alt="">
+        </button>
+      </div>
+
+     <button class="btn-cuadrado" data-button="config" aria-label="Botón Config">
+        <img src="botones/marco.png" data-part="marco" alt="">
+        <img src="botones/symbol_config.png" data-part="symbol_config" alt="">
+      </button>
+
+      <button class="btn-cuadrado" data-button="user" aria-label="Botón Usuario">
+        <img src="botones/btn_user.png" alt="Usuario">
+      </button>
+      
+    </header> 
+
+  
+    <body>
+
+        <audio autoplay loop aria-label="Música del Canal Mii">
+            <source src="./music/wii_menu.flac" type="audio/flac">
+        </audio>
+
+        <main>
+            <ul class="navigation">
+                <!-- cuadrito de cd en blanco -->
+                <li>
+                    <!-- make sure this link matches the ID of the popup you want to display -->
+                    <a href="#container-1">
+                        <img src="https://64.media.tumblr.com/57cf461a1819e5f240894118d1d0c568/d662040e3a2b8722-26/s400x600/c04c16872971599bb3c749bfa29c7d561c736247.pnj" alt="empty CD wii menu placeholder" />
+                    </a>
+                </li>
+
+                <!-- mascota 1 -->
+                <li>
+                  <a href="mascotas/benito/benito.html">
+                    <img src="mascotas/benito/imgs/1.jpg" alt="benito" />
+
+                  </a>
+                </li>
+
+                <!-- mascota 2 -->
+                <li>
+                  <a href="mascotas/salem/salem.html">
+                    <img src="mascotas/salem/imgs/1.jpg" alt="salem" />
+
+                  </a>
+                </li>
+
+
+                <!-- mascota 3 -->
+                <li>
+                  <a href="mascotas/kiwi/kiwi.html">
+                    <img src="mascotas/kiwi/imgs/1.jpg" alt="kiwi" />
+                    
+                  </a>
+                </li>
+
+              
+                <!-- Fin mascotas -->
+                <li>
+                    <a href="#container-2">
+                        <img src="https://64.media.tumblr.com/077b3fa310d0f638c9cc671af80131dc/d662040e3a2b8722-93/s400x600/20eca28477dbe64b8dfc42898ffc8b7e9d7098b2.pnj" alt="mii background image" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#container-3"><img src="https://64.media.tumblr.com/4acf7d6703348eb3de2d6f422eac02b8/d28e227eb623ad41-cc/s1280x1920/89820b9bf56d7d7e0448b940fa4727a5a32129dc.jpg" alt="wii shop channel"></a>
+                </li> 
+                <!-- or if you do not want a popup, you can just make a regular link -->
+                <li>
+                    <a href="minipractica6.html"><img src="https://64.media.tumblr.com/28ae4ac4079501d6efa5fc5518588e69/d28e227eb623ad41-a4/s1280x1920/3d4522bda6043bf90af3a0114e79038863c79b85.pnj" alt="check mii out channel"></a>
+                </li>
+                <!-- if you want empty/unused sections, just leave empty <li>. this will have a "WII" text placeholder and a static background  -->
+                <li></li>
+
+            </ul>
+          
+            <!-- make sure this id matches the value of the "button" that will open this popup  -->
+            <div id="container-1" class="content">
+                <div class="container">
+                    <header></header>
+                    <div class="wii">
+                        Nada xd
+                    </div>
+                    <div class="bottom">
+                        <a href="#" class="button">
+                            <span class="corner"></span>
+                            <!-- put the text content inside <span class="text"> -->
+                            <span class="text">Back</span>
+                        </a>
+                        <a href="" class="button">
+                            <span class="corner"></span>
+                            <!-- put the text content inside <span class="text"> -->
+                            <span class="text">Back x2</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+          <!-- end container -->
+          <!-- start container 2 -->
+            <div id="container-2" class="content full">
+                <div class="container">
+                    <header></header>
+                    <div class="wii">
+                        Wii menu content
+                    </div>
+                    <div class="bottom">
+                        <a href="#" class="button">
+                            <span class="corner"></span>
+                            <span class="text">Back</span>
+                        </a>
+                        <a href="" class="button">
+                            <span class="corner"></span>
+                            <span class="text">???</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+          <!-- end container 2 -->
+            <!-- if you only want a simple popup, only include class="content" instead of class="content full" like the containers above -->
+            <div id="container-3" class="content">
+                <div class="container">
+                    <!-- wii menu style button that you can copy/paste anywhere:
+                  <a href="" class="button"><span class="corner"></span>
+                      <span class="text">Test 2</span>
+                  </a>
+                  -->
+                    <p>Popup content</p>
+                    <a href="#" class="cancel">Cancel</a>
+                </div>
+            </div>
+          <!-- end container 3 -->
+        </main>
+        
+        <div class="bottom-text">
+        </div>
+        <footer>
+            <div class="button-cont">
+                <a class="button" href="/">
+                    <span class="corner"></span>
+                    <span class="text">Home</span>
+                </a>
+            </div>
+            <div class="c"></div>
+            <div class="c"></div>
+            <div class="m"></div>
+            <div class="button-cont right-side">
+                <a class="button" href="minipractica6.html">
+                    <span class="corner"></span>
+                    <span class="text">Ask</span>
+                </a>
+            </div>
+        </footer>
+        
+        <script src="./main.js"></script>
+    </body>
+</html>

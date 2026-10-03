@@ -1,28 +1,29 @@
-const publicaciones = [
-  {
-    foto: "./mascotas/1.jpeg",
-    textoAlternativo: "Salem",
-    titulo: "Salem",
-    descripcion: "Salem acostado en el piso"
-  },
-  ...["2.jpg", "3.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"].map(
-    (foto, indice) => {
-      const numero = indice + 2;
-      return {
-        foto: `./mascotas/${foto}`,
-        textoAlternativo: `Mascota de la foto ${numero}`,
-        titulo: `Mascota ${numero}`,
-        descripcion: `Publicación de la mascota ${numero}`
-      };
-    }
-  )
+// Arreglo genérico que busca imágenes en la carpeta local 'imgs/' de la mascota actual
+const imagenesMascota = [
+  "1.jpg",
+  "2.jpg",
+  "3.jpg",
+  "4.jpg",
+  "5.jpg",
+  "6.jpg"
 ];
+
+// Mapeamos los datos de las publicaciones dinámicamente según la ruta local
+const publicaciones = imagenesMascota.map((archivo, indice) => {
+  const numero = indice + 1;
+  return {
+    foto: `./imgs/${archivo}`, // Busca directamente en la carpeta imgs/ del HTML actual
+    textoAlternativo: `Foto ${numero} de la mascota`,
+    titulo: `Foto${numero}`
+  };
+});
 
 const ventanaCarrusel = document.querySelector(".carrusel-ventana");
 const listaCarrusel = document.querySelector(".carrusel-lista");
 const botonesCarrusel = document.querySelectorAll(".btn-carrusel");
 let inicio = 0;
 
+// Renderizar dinámicamente las tarjetas en el DOM
 publicaciones.forEach((publicacion) => {
   const tarjeta = document.createElement("article");
   tarjeta.className = "publicacion";
@@ -59,7 +60,7 @@ function actualizarCarrusel() {
 
   const tarjeta = listaCarrusel.firstElementChild;
   const desplazamiento = tarjeta
-    ? tarjeta.getBoundingClientRect().width + Number.parseFloat(getComputedStyle(listaCarrusel).gap)
+    ? tarjeta.getBoundingClientRect().width + Number.parseFloat(getComputedStyle(listaCarrusel).gap || 0)
     : 0;
   listaCarrusel.style.transform = `translateX(-${inicio * desplazamiento}px)`;
 

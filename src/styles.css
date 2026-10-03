@@ -1,0 +1,956 @@
+/* ==========================================================================
+   1. VARIABLES GLOBALES Y CONFIGURACIÓN (:root)
+   ========================================================================== */
+:root {
+  /* Barra de navegación */
+  --bar-color: #7D7D7D;
+
+  /* Botones generales */
+  --boton-tamano: 5vw;
+  --boton-tamano-min: 40px;
+  --boton-tamano-max: 50px;
+
+  /* Barra de búsqueda */
+  --searchbar-height: 5vw;
+  --searchbar-height-min: 40px;
+  --searchbar-height-max: 50px;
+
+  --searchbar-width: 50vw;
+  --searchbar-width-min: 100px;
+  --searchbar-width-max: 800px;
+
+  /* Colores del tema Wii */
+  --fondo-boton: #e7e7e7;
+  --fondo-searchbar: #CEF1FA;
+  --fondo-imagen: #CEF1FA;
+  --borde-color-1: #35c5ec;
+  --borde-color-2: #31A29C;
+
+  /* Offsets y separaciones */
+  --home-offset: clamp(16px, 8vw, 120px);
+  --user-offset: clamp(16px, 8vw, 120px);
+  --config-offset: clamp(16px, 4vw, 120px);
+  --config-marco-size: 100%;
+  --config-symbol_config-size: 55%;
+}
+
+/* ==========================================================================
+   2. REGLAS BASE Y RESET
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Continuum Medium";
+  src: url("./fonts/contm.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Continuum Medium", sans-serif;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  cursor: url("./pointer/pointer.png") 12 1, auto;
+}
+
+body * {
+  cursor: url("./pointer/pointer.png") 12 1, auto;
+}
+
+a {
+  text-decoration: none;
+  color: #222;
+}
+
+.custom-cursor:hover {
+  cursor: url("botones/pointer.png"), auto;
+}
+
+/* ==========================================================================
+   3. HEADER Y BARRA DE NAVEGACIÓN SUPERIOR
+   ========================================================================== */
+header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--bar-color);
+  color: #ccc;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 30%;
+  position: relative;
+}
+
+/* Botón Circular (Home) */
+.btn-circular {
+  width: clamp(var(--boton-tamano-min), var(--boton-tamano), var(--boton-tamano-max));
+  height: clamp(var(--boton-tamano-min), var(--boton-tamano), var(--boton-tamano-max));
+  border-radius: 50%;
+  padding: 0;
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--fondo-boton);
+  border: 3px solid var(--borde-color-1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-block: 15px;
+  margin-inline: 0;
+  position: relative;
+}
+
+.btn-circular img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  transform: scale(1);
+}
+
+.btn-circular[data-button="home"] img {
+  transform: scale(1.35);
+}
+
+.btn-circular:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 1px var(--borde-color-1);
+}
+
+.btn-circular:active {
+  transform: scale(0.9);
+}
+
+/* Botón Cuadrado (Configuración / Usuario) */
+.btn-cuadrado {
+  box-sizing: border-box;
+  width: clamp(var(--boton-tamano-min), var(--boton-tamano), var(--boton-tamano-max));
+  height: clamp(var(--boton-tamano-min), var(--boton-tamano), var(--boton-tamano-max));
+  padding: 0;
+  border: 0;
+  appearance: none;
+  outline: none;
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--borde-color-2);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-inline: 0;
+}
+
+.btn-cuadrado img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.3s ease;
+  transform: scale(1);
+}
+
+.btn-cuadrado[data-button="config"] [data-part="marco"] {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform: scale(1.06);
+}
+
+.btn-cuadrado[data-button="config"] [data-part="symbol_config"] {
+  width: 55%;
+  height: 55%;
+  z-index: 1;
+  inset: 22.5%;
+}
+
+.btn-cuadrado:hover {
+  transform: scale(1.1);
+}
+
+.btn-cuadrado:active {
+  transform: scale(0.9);
+}
+
+.btn-cuadrado:focus-visible {
+  outline: 2px solid var(--borde-color-2);
+  outline-offset: 2px;
+}
+
+/* Margenes de la barra de navegación */
+header [data-button="home"] {
+  margin-left: var(--home-offset);
+}
+
+header [data-button="config"] {
+  margin-left: auto;
+}
+
+header [data-button="user"] {
+  margin-left: var(--config-offset);
+  margin-right: var(--user-offset);
+}
+
+/* Barra de Búsqueda */
+.searchbar {
+  box-sizing: border-box;
+  width: clamp(var(--searchbar-width-min), var(--searchbar-width), var(--searchbar-width-max));
+  height: clamp(var(--searchbar-height-min), var(--searchbar-height), var(--searchbar-height-max));
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5% 1%;
+  border-radius: 10px;
+  background: var(--fondo-searchbar);
+  border: 3px solid var(--borde-color-1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+}
+
+.searchbar-input {
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 3%;
+  border: 3px dotted var(--bar-color);
+  border-radius: 6px;
+  background: var(--fondo-boton);
+  color: #222;
+  font: inherit;
+}
+
+.searchbar-input:focus-visible {
+  outline: 2px solid var(--borde-color-1);
+  outline-offset: 2px;
+}
+
+.btn-searchbar {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: clamp(var(--boton-tamano-min), var(--boton-tamano), var(--boton-tamano-max));
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  appearance: none;
+  cursor: pointer;
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--fondo-searchbar);
+  transition: transform 0.3s ease;
+}
+
+.btn-searchbar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.btn-searchbar:hover {
+  transform: scale(1.1);
+}
+
+.btn-searchbar:active {
+  transform: scale(0.9);
+}
+
+.btn-searchbar:focus-visible {
+  outline: 2px solid var(--borde-color-2);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   4. MENÚ PRINCIPAL DE WII (GRILLA DE CANALES Y VENTANAS EMERGENTES)
+   ========================================================================== */
+main {
+  padding: 24px 16px;
+}
+
+main ul.navigation {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  margin: 10vh auto;
+  padding: 1rem;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+main ul.navigation li {
+  position: relative;
+  overflow: hidden;
+  width: calc(25% - 0.8rem);
+  margin: 0.4rem;
+  aspect-ratio: 2 / 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border: 2.4px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.02);
+  padding: var(--spacing);
+  background-image: repeating-radial-gradient(circle at 14% 30%, white, rgba(0, 0, 0, 0.12) 0.0008px);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+main ul.navigation li:before {
+  content: "";
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.02)), linear-gradient(to top right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.12));
+  background-size: 100% 8px, cover;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.navigation li a {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+li:empty:after {
+  width: 100%;
+  height: 100%;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.12;
+  content: "Wii";
+  font-weight: bold;
+}
+
+li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  object-position: center;
+}
+
+
+li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 1px var(--borde-color-1);
+}
+
+li:active {
+  transform: scale(0.9);
+}
+
+/* Modales y Popups en el Menú Principal */
+.content {
+  position: absolute;
+  width: 100vw;
+  display: flex;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.content .container {
+  width: 500px;
+  background: white;
+  text-align: center;
+  border-radius: 1rem;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.content:target {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.content.full {
+  background: black;
+}
+
+.content.full .container {
+  width: 90vw;
+  display: flex;
+  border-radius: 3rem;
+  overflow: hidden;
+  position: relative;
+  flex-wrap: wrap;
+  align-items: space-between;
+  padding: 0;
+  height: 90vh;
+}
+
+.full .bottom {
+  width: 100%;
+  align-self: flex-end;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-height: 200px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.02)), linear-gradient(to top right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.12));
+  background-size: 100% 4px, cover;
+  border-top: 2.4px solid #aaa;
+}
+
+.full header {
+  background: skyblue;
+  padding: 2rem;
+  position: absolute;
+  width: 100%;
+}
+
+.full header:before {
+  content: "";
+  background: white;
+  width: 70%;
+  top: 20px;
+  left: -1rem;
+  height: 40px;
+  padding: 1rem;
+  border-radius: 2rem;
+  position: absolute;
+}
+
+.full header:after {
+  background-image: radial-gradient(circle at 100% 0, transparent 0%, transparent 38px, white 40px);
+  content: "";
+  width: 40px;
+  position: absolute;
+  height: 34px;
+  left: 0;
+  margin-top: -2px;
+  margin-left: calc(70% + 10px);
+}
+
+.bottom .button {
+  max-width: 40%;
+}
+
+.wii {
+  padding: 2rem;
+  margin-top: 100px;
+}
+
+.cancel {
+  border-radius: 1.4rem;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.08), 0 0 0 4px white, 2px 2px 10px rgba(0, 0, 0, 0.2), 0 0 4px 2px rgba(0, 0, 0, 0.4);
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  width: 80%;
+  background: linear-gradient(to bottom, white 70%, rgba(0, 0, 0, 0.2));
+}
+
+/* Botón estilo Wii */
+.button {
+  width: 50%;
+  margin: 1rem 0;
+  text-align: center;
+  border-radius: 2rem;
+  display: inline-block;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  text-decoration: none;
+  color: #222;
+  box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.08);
+  border: 2.6px solid skyblue;
+  background: #dae3e5;
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+}
+
+.button:before {
+  content: "";
+  width: 94%;
+  left: 0;
+  top: 0px;
+  border-radius: 2rem;
+  height: 40%;
+  background: #ebecee;
+  position: absolute;
+}
+
+.button:after {
+  content: "";
+  width: 54%;
+  left: 0;
+  top: 0px;
+  border-radius: 2rem;
+  height: 100%;
+  background: #ebecee;
+  position: absolute;
+}
+
+.corner {
+  display: block;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 40%;
+  z-index: 1;
+  border-radius: 2rem;
+  height: 100%;
+  background: #dae3e5;
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer Principal del Menú Wii */
+footer {
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  filter: drop-shadow(3px 0px 0px skyblue) drop-shadow(-3px 0px 0px skyblue) drop-shadow(0px -3px 0px skyblue);
+}
+
+.c {
+  width: 33%;
+  height: 200px;
+  border-radius: 3rem;
+  background: #bbb;
+  left: -5%;
+  position: absolute;
+}
+
+.c:nth-of-type(2) {
+  left: auto;
+  right: -5%;
+}
+
+.c:after {
+  background-image: radial-gradient(circle at 100% 0, transparent 0%, transparent 100px, #bbb 100px);
+  content: "";
+  width: 100px;
+  position: absolute;
+  height: 80px;
+  transform: scale(0.8);
+  right: -84.2px;
+  margin-top: 8px;
+}
+
+.c:nth-of-type(2):after {
+  right: auto;
+  left: -84.2px;
+  transform: scale(0.8) scaleX(-1);
+}
+
+.m {
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.02)), linear-gradient(to bottom, #bbb, #f5f5f5);
+  position: absolute;
+  top: 40%;
+  background-size: 100% 8px, cover;
+}
+
+.bottom-text {
+  position: absolute;
+  width: 250px;
+  bottom: 1rem;
+  z-index: 1;
+  padding: 1rem;
+  text-align: center;
+  left: 50%;
+  margin-left: -125px;
+}
+
+.button-cont {
+  position: absolute;
+  width: 200px;
+  left: 0;
+  z-index: 1;
+  margin-left: -50px;
+  padding: 1rem;
+  padding-left: 200px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6rem;
+  display: flex;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.08);
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+}
+
+.button-cont:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 1px var(--borde-color-1);
+}
+
+.button-cont:active {
+  transform: scale(0.9);
+}
+
+.button-cont.right-side {
+  left: auto;
+  right: -40px;
+  padding-left: 1rem;
+  padding-right: 200px;
+}
+
+.button-cont.right-side .button {
+  margin-left: 1rem;
+}
+
+.button-cont .button {
+  min-width: 80px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  transform: scale(1.2);
+  align-items: center;
+  border-radius: 100%;
+  height: 70px;
+  border-width: 4px;
+  margin-left: -100px;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   5. PUBLICACIONES Y CARRUSEL DE TARJETAS
+   ========================================================================== */
+.publicacion {
+  background-color: #E0E0E0;
+  border: 3px solid #777;
+  border-radius: 20px;
+  width: min(70vw, 275px);
+  padding: 18px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 24px auto;
+}
+
+.imagen-objeto {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 3px solid #224488;
+  background-color: var(--fondo-imagen);
+  margin-bottom: 20px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.titulo-objeto {
+  font-size: clamp(1.7rem, 2vw, 2.8rem);
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  color: #000;
+}
+
+.detalles-caja {
+  border: 3px dashed #777;
+  border-radius: 12px;
+  padding: 15px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.descripcion {
+  font-size: 1.2em;
+  margin: 0;
+  color: #000;
+}
+
+.carrusel {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 12px;
+}
+
+.carrusel-ventana {
+  --publicaciones-visibles: 3;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.carrusel-lista {
+  display: flex;
+  align-items: stretch;
+  gap: 18px;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.carrusel-lista .publicacion {
+  flex: 0 0 calc((100% - 36px) / 3);
+  width: auto;
+  margin: 0;
+}
+
+.btn-carrusel {
+  width: 48px;
+  height: 48px;
+  padding: 4px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-carrusel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.btn-carrusel:hover:not(:disabled) {
+  transform: scale(1.12);
+}
+
+.btn-carrusel:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.btn-carrusel:focus-visible {
+  outline: 2px solid var(--borde-color-1);
+  outline-offset: 2px;
+}
+
+.btn-carrusel:disabled {
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+  opacity: 0.4;
+}
+
+/* Media Queries Carrusel */
+@media (max-width: 850px) {
+  .carrusel-ventana {
+    --publicaciones-visibles: 2;
+  }
+  .carrusel-lista .publicacion {
+    flex-basis: calc((100% - 18px) / 2);
+  }
+}
+
+@media (max-width: 560px) {
+  .carrusel {
+    grid-template-columns: 36px minmax(0, 1fr) 36px;
+    gap: 6px;
+  }
+  .carrusel-ventana {
+    --publicaciones-visibles: 1;
+  }
+  .carrusel-lista .publicacion {
+    flex-basis: 100%;
+  }
+  .btn-carrusel {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ==========================================================================
+   6. VISTA INDIVIDUAL DE MASCOTA (CANAL DE MASCOTA)
+   ========================================================================== */
+body.wii-channel-page {
+  background: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.channel-container {
+  width: 90vw;
+  height: 90vh;
+  max-width: 1200px;
+  background: #f8f8f8;
+  border-radius: 3rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.channel-header {
+  background: skyblue;
+  padding: 1.2rem 2rem;
+  position: relative;
+}
+
+.channel-title h1 {
+  margin: 0;
+  color: #333;
+  font-size: 2rem;
+}
+
+.channel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Carrusel interno del canal */
+.wii-carousel {
+  position: relative;
+  width: 80%;
+  max-width: 450px;
+  height: 260px;
+  border: 4px solid #35c5ec;
+  border-radius: 1.5rem;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.carousel-track-container {
+  height: 100%;
+  position: relative;
+}
+
+.carousel-track {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  height: 100%;
+  display: flex;
+  width: 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Controles del carrusel */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(231, 231, 231, 0.9);
+  border: 2px solid #35c5ec;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: url("./pointer/pointer.png") 12 1, pointer;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.btn-prev { left: 10px; }
+.btn-next { right: 10px; }
+
+.carousel-nav {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.indicator {
+  border: none;
+  width: 10px;
+  height: 10px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.indicator.current-indicator {
+  background: #35c5ec;
+}
+
+.pet-info {
+  text-align: center;
+  color: #444;
+}
+
+.pet-info p {
+  margin: 0.3rem 0;
+}
+
+/* Anulación de Footer Global para las subpáginas de Mascota */
+footer.channel-bottom {
+  position: relative !important;
+  bottom: auto !important;
+  height: auto !important;
+  min-height: 80px;
+  padding: 1rem;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: linear-gradient(to top, #e2e2e2, #f8f8f8);
+  border-top: 2.4px solid #aaa;
+  filter: none !important;
+}

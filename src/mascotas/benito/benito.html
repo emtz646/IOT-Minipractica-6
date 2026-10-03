@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    />
+    <link rel="stylesheet" href="../../styles.css" />
+    <title>Benito</title>
+  </head>
+
+  <body>
+    <header>
+      <a href="../../minipractica6.html" class="btn-circular" data-button="home" aria-label="Botón Home">
+        <img src="../../botones/btn_home.png" alt="Home">
+      </a>
+
+      <div class="searchbar">
+        <input
+          class="searchbar-input"
+          type="search"
+          aria-label="Buscar"
+          placeholder="Buscar..."
+        >
+        <button class="btn-searchbar" data-button="Search" type="button" aria-label="Buscar">
+          <img src="../../botones/btn_search.png" alt="">
+        </button>
+      </div>
+
+     <button class="btn-cuadrado" data-button="config" aria-label="Botón Config">
+        <img src="../../botones/marco.png" data-part="marco" alt="">
+        <img src="../../botones/symbol_config.png" data-part="symbol_config" alt="">
+      </button>
+
+      <button class="btn-cuadrado" data-button="user" aria-label="Botón Usuario">
+        <img src="../../botones/btn_user.png" alt="Usuario">
+      </button>
+      
+    </header>
+    
+    <audio autoplay loop aria-label="Música del Canal Mii">
+      <source src="../../music/mii_channel.flac" type="audio/flac">
+    </audio>
+
+
+    <main>
+      <section class="carrusel" aria-label="Publicaciones de mascotas">
+        <button
+          class="btn-carrusel"
+          data-direction="-1"
+          type="button"
+          aria-label="Ver publicaciones anteriores"
+        >
+          <img src="../../botones/btn_left.png" alt="">
+        </button>
+
+        <div class="carrusel-ventana">
+          <div class="carrusel-lista"></div>
+        </div>
+
+        <button
+          class="btn-carrusel"
+          data-direction="1"
+          type="button"
+          aria-label="Ver publicaciones siguientes"
+        >
+          <img src="../../botones/btn_right.png" alt="">
+        </button>
+      </section>
+        
+    </main>
+
+    <script src="../carrusel.js"></script>
+  </body>
+</html>
